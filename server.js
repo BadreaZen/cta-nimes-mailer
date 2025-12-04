@@ -17,12 +17,12 @@ app.get('/', (req, res) => {
 app.post('/send-email', async (req, res) => {
   const { destinataire, date, heure, categorie } = req.body;
 
-  // Vérification des champs
+  // Vérif des champs
   if (!destinataire || !date || !heure || !categorie) {
     return res.status(400).json({ success: false, error: 'Champs manquants' });
   }
 
-  // Vérifier la clé API Resend
+  // Clé API Resend
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     console.error('RESEND_API_KEY manquante dans les variables d’environnement');
@@ -52,9 +52,9 @@ app.post('/send-email', async (req, res) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'CTA Nîmes <cta-nimes@resend.dev>', // expéditeur affiché
-        to: [destinataire],                       // tableau d'adresses
-        subject: "absence d'arbitre sur rencontre",
+        from: 'CTA Nîmes <contact@cta-secteur-nimes.resend.dev>', // expéditeur
+        to: [destinataire],                                     // destinataire
+        subject: 'absence d\'arbitre sur rencontre',
         html: htmlMessage
       })
     });
