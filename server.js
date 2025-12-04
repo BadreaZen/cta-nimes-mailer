@@ -23,12 +23,14 @@ app.post('/send-email', async (req, res) => {
 
   // Transporteur SMTP Gmail
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.MAIL_USER, // cta.secteur.nimes@gmail.com
-      pass: process.env.MAIL_PASS  // wkiiafujtqxpvnzd
-    }
-  });
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.MAIL_USER, // cta.secteur.nimes@gmail.com
+    pass: process.env.MAIL_PASS  // wkiiafujtqxpvnzd
+  }
+});
 
   const htmlMessage = `
     Bonjour,<br><br>
@@ -62,3 +64,4 @@ app.post('/send-email', async (req, res) => {
 app.listen(port, () => {
   console.log(`Serveur lancé sur le port ${port}`);
 });
+
